@@ -1,0 +1,47 @@
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  text-align: center;
+}
+
+h1 {
+  background: #ff6b6b;
+  color: white;
+  padding: 15px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 0 10px gray;
+  border-radius: 10px;
+}
+
+input {
+  width: 90%;
+  margin: 5px;
+  padding: 10px;
+}
+
+button {
+  background: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.food-item {
+  background: #eee;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
