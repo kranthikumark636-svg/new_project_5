@@ -1,38 +1,61 @@
-let foods = JSON.parse(localStorage.getItem("foods")) || [];
+let userLocation = "";
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
+
+      userLocation = `https://www.google.com/maps?q=${lat},${lon}`;
+
+      document.getElementById("locationText").innerText =
+        "Location Captured ✅";
+    });
+  } else {
+    alert("Geolocation not supported");
+  }
+}
 
 function addFood() {
   let name = document.getElementById("name").value;
   let food = document.getElementById("food").value;
-  let location = document.getElementById("location").value;
-  let contact = document.getElementById("contact").value;
+  let phone = document.getElementById("phone").value;
 
-  if (!name || !food || !location || !contact) {
-    alert("Fill all fields");
+  if (!name || !food || !phone || !userLocation) {
+    alert("Fill all details + location");
     return;
   }
 
-  let newFood = { name, food, location, contact };
+  let data = JSON.parse(localStorage.getItem("foods")) || [];
 
-  foods.push(newFood);
-  localStorage.setItem("foods", JSON.stringify(foods));
+  data.push({
+    name,
+    food,
+    phone,
+    location: userLocation,
+  });
+
+  localStorage.setItem("foods", JSON.stringify(data));
 
   displayFoods();
 }
 
 function displayFoods() {
-  let list = document.getElementById("foodList");
-  list.innerHTML = "";
+  let data = JSON.parse(localStorage.getItem("foods")) || [];
+  let output = "";
 
-  foods.forEach((item, index) => {
-    list.innerHTML += `
-      <div class="food-item">
-        <h3>${item.food}</h3>
-        <p>👤 ${item.name}</p>
-        <p>📍 ${item.location}</p>
-        <p>📞 ${item.contact}</p>
+  data.forEach((item) => {
+    output += `
+      <div class="card">
+        <h3>${item.name}</h3>
+        <p>🍛 ${item.food}</p>
+        <a href="tel:${item.phone}">📞 Call</a><br>
+        <a href="${item.location}" target="_blank">📍 View Location</a>
       </div>
     `;
   });
+
+  document.getElementById("foodList").innerHTML = output;
 }
 
 displayFoods();
