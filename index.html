@@ -1,5 +1,38 @@
-<div style="text-align:center; margin-top:20px;">
-  <a href="dashboard.html">
-    <img src="logo.png" alt="Logo" style="width:150px; cursor:pointer;">
-  </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Food Storage System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>🍱 Food Storage & Sharing</h1>
+
+<div class="container">
+
+  <!-- Add Food -->
+  <div class="card">
+    <h2>Add Food</h2>
+
+    <input type="text" id="name" placeholder="Your Name">
+    <input type="text" id="food" placeholder="Food Details">
+    <input type="text" id="location" placeholder="Location">
+    <input type="text" id="contact" placeholder="Phone Number">
+
+    <button onclick="addFood()">Submit</button>
+  </div>
+
+  <!-- View Food -->
+  <div class="card">
+    <h2>Available Food</h2>
+    <div id="foodList"></div>
+  </div>
+
 </div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
