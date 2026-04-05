@@ -1,29 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Food Share App</title>
+  <meta charset="UTF-8">
+  <title>Food Storage System</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<h1>🍛 Food Sharing System</h1>
+<h1>🍱 Food Sharing Platform</h1>
 
 <div class="form">
-  <input type="text" id="name" placeholder="Your Name"><br>
-  <input type="text" id="food" placeholder="Food Details"><br>
-  <input type="text" id="phone" placeholder="Phone Number"><br>
+  <input type="text" id="name" placeholder="Your Name">
+  <input type="text" id="phone" placeholder="Phone Number">
+  <input type="text" id="food" placeholder="Food Details">
 
-  <button onclick="getLocation()">📍 Get Current Location</button>
-  <p id="locationText">Location not fetched</p>
-
-  <button onclick="addFood()">Submit</button>
+  <button onclick="getLocation()">📍 Get Location</button>
+  <button onclick="saveData()">✅ Submit</button>
 </div>
 
 <h2>📦 Available Food</h2>
-<div id="foodList"></div>
+<div id="dataList"></div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
