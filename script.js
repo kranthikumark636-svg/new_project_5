@@ -1,61 +1,66 @@
-let userLocation = "";
+let latitude = "";
+let longitude = "";
 
+// 📍 Get Current Location
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
-
-      userLocation = `https://www.google.com/maps?q=${lat},${lon}`;
-
-      document.getElementById("locationText").innerText =
-        "Location Captured ✅";
+      latitude = position.coords.latitude;
+      longitude = position.coords.longitude;
+      alert("Location captured ✅");
     });
   } else {
     alert("Geolocation not supported");
   }
 }
 
-function addFood() {
+// 💾 Save Data
+function saveData() {
   let name = document.getElementById("name").value;
-  let food = document.getElementById("food").value;
   let phone = document.getElementById("phone").value;
+  let food = document.getElementById("food").value;
 
-  if (!name || !food || !phone || !userLocation) {
-    alert("Fill all details + location");
+  if (!name || !phone || !food || !latitude) {
+    alert("Please fill all fields + location");
     return;
   }
 
-  let data = JSON.parse(localStorage.getItem("foods")) || [];
-
-  data.push({
+  let data = {
     name,
-    food,
     phone,
-    location: userLocation,
-  });
+    food,
+    latitude,
+    longitude
+  };
 
-  localStorage.setItem("foods", JSON.stringify(data));
+  let allData = JSON.parse(localStorage.getItem("foodData")) || [];
+  allData.push(data);
 
-  displayFoods();
+  localStorage.setItem("foodData", JSON.stringify(allData));
+
+  displayData();
 }
 
-function displayFoods() {
-  let data = JSON.parse(localStorage.getItem("foods")) || [];
-  let output = "";
+// 📦 Display Data
+function displayData() {
+  let list = document.getElementById("dataList");
+  list.innerHTML = "";
 
-  data.forEach((item) => {
-    output += `
+  let allData = JSON.parse(localStorage.getItem("foodData")) || [];
+
+  allData.forEach((item) => {
+    let mapLink = `https://www.google.com/maps?q=${item.latitude},${item.longitude}`;
+
+    list.innerHTML += `
       <div class="card">
-        <h3>${item.name}</h3>
-        <p>🍛 ${item.food}</p>
-        <a href="tel:${item.phone}">📞 Call</a><br>
-        <a href="${item.location}" target="_blank">📍 View Location</a>
+        <h3>${item.food}</h3>
+        <p><b>Name:</b> ${item.name}</p>
+        <p><b>Phone:</b> ${item.phone}</p>
+        <a href="${mapLink}" target="_blank">📍 View Location</a>
       </div>
     `;
   });
-
-  document.getElementById("foodList").innerHTML = output;
 }
 
-displayFoods();
+// Load data on start
+displayData();
